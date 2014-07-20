@@ -1,0 +1,19 @@
+{
+  "name": "bbdv",
+  "main": "built/bbdv.js",
+  "version": "0.0.0",
+  "description": "Some module...",
+  "dependencies": {
+    "lowercase-backbone": "~0.2.7",
+    "lodash": "~2.4.1",
+    "swtch": "~0.2.2",
+    "jquery-meta-data": "*"
+  },
+  "devDependencies": {
+    "requirejs": "*",
+    "requirejs-text": "*",
+    "underscore": "*",
+    "jquery": "*",
+    "qunit": "*"
+  }
+}
