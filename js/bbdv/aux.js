@@ -18,7 +18,7 @@ define(function defAux(require, exports, module) {
 	 *
 	 */
 	exports.buildPrefixRegExp = function buildPrefixRegExp(prefix) {
-		return new RegExp('^' + prefix + '([A-Z$_].*$)');
+		return new RegExp('^' + prefix + '([A-Z$_].*$|$)');
 	};
 
 	/**

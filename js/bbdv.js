@@ -11,6 +11,7 @@
 define(function defBbdv(require, exports, module) {
 	'use strict';
 
+	require('jquery-selector-data-prefix');
 
 	var backbone = require('lowercase-backbone'),
 		$        = require('jquery');
@@ -22,13 +23,15 @@ define(function defBbdv(require, exports, module) {
 
 
 	function findDirectedElements($root, selector) {
-		var $directed = $root.find(selector);
+		var $directed;
 
 		// check if $root has directives
 		if ($root.is(selector)) {
-			$directed = $directed.add($root);
+			$directed = $root.add($root.find(selector));
 			// $el.add() creates a NEW SELECTION :)
 			// it does not add to the original jq object.
+		} else {
+			$directed = $root.find(selector);
 		}
 
 		return $directed;
@@ -50,7 +53,6 @@ define(function defBbdv(require, exports, module) {
 			var selector  = this.selector(this.namespace),
 				$directed = findDirectedElements(this.$el, selector);
 
-
 			// execute directives
 			// keep variables in cache befoer loop
 			var namespace  = this.namespace,
@@ -58,13 +60,18 @@ define(function defBbdv(require, exports, module) {
 
 			_.each($directed, function (el) {
 
-				executeDirectives.call(this, $(el), namespace, directives);
+				executeDirectives(this, $(el), namespace, directives);
 
 			}, this);
 
 		},
 
-		directives: {},
+		/**
+		 * Array where the directive names are defined.
+		 * The names defined here should have a corresponding method on the object.
+		 * @type {Array}
+		 */
+		directives: [],
 
 		namespace: 'dir',
 
@@ -74,5 +81,37 @@ define(function defBbdv(require, exports, module) {
 		},
 
 
+	});
+
+
+	bbdv.assignStatic('extendDirectives', function () {
+
+		// extensions to be set onto the extended object.
+		var extensions;
+
+		// clone current directives array.
+		var directives = _.clone(this.prototype.directives);
+
+		if (arguments.length === 1) {
+			// arguments = [{ directiveNamespace: directiveMethod }]
+			extensions = arguments[0];
+
+			directives = _.union(directives, _.keys(extensions));
+
+
+		} else if (arguments.length === 2) {
+			// arguments = [directiveNamespace, directiveMethod]
+			extensions = {};
+			extensions[arguments[0]] = arguments[1];
+
+			directives.push(arguments[0]);
+		}
+
+		// set new directives onto extensions object.
+		extensions.directives = directives;
+
+
+		// extend and return.
+		return this.extend(extensions);
 	});
 });

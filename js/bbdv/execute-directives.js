@@ -2,26 +2,30 @@ define(function defExecuteDirectives(require, exports, module) {
 
 	var _ = require('lodash');
 
-	var extractDirectiveOptions = require('bbdv/extract-directive-options');
-
+	var extractDirectiveArgs = require('bbdv/extract-directive-arguments'),
+		aux                  = require('bbdv/aux');
 
 	/**
-	 * Run directives
-	 * @param  {[type]} $el        [description]
-	 * @param  {[type]} namespace  [description]
-	 * @param  {[type]} directives [description]
-	 * @return {[type]}            [description]
+	 * [exports description]
+	 * @param  {[type]} context             [description]
+	 * @param  {[type]} $el                 [description]
+	 * @param  {[type]} namespace           [description]
+	 * @param  {[type]} directiveNamespaces [description]
+	 * @return {[type]}                     [description]
 	 */
-	module.exports = function executeDirectives($el, namespace, directives) {
+	module.exports = function executeDirectives(context, $el, namespace, directiveNamespaces) {
 
-		var directiveOptions = extractDirectiveOptions(namespace, _.keys(directives), $el.data());
+		// camelCase all directive namespaces
+		directiveNamespaces = _.map(directiveNamespaces, aux.camelCase);
 
-		console.log(directiveOptions)
+		// extract options from the $el.data()
+		var directiveArgs = extractDirectiveArgs(namespace, directiveNamespaces, $el.data());
 
-		_.each(directiveOptions, function (diropts, dirns) {
+		// run context
+		_.each(directiveArgs, function (dirArg, dirNs) {
 
-			// get fn
-			directives[dirns].call(this, $el, diropts);
+			// get fn and invoke it.
+			context[dirNs].call(this, $el, dirArg);
 
 		}, this);
 

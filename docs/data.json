@@ -1,0 +1,212 @@
+{
+    "project": {
+        "name": "bbdv",
+        "version": "0.0.0"
+    },
+    "files": {
+        "js/bbdv/aux.js": {
+            "name": "js/bbdv/aux.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "js/bbdv/execute-directives.js": {
+            "name": "js/bbdv/execute-directives.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "js/bbdv/extract-directive-arguments.js": {
+            "name": "js/bbdv/extract-directive-arguments.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "js/bbdv.js": {
+            "name": "js/bbdv.js",
+            "modules": {
+                "Bbdv": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "Bbdv": {
+            "name": "Bbdv",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "js/bbdv.js",
+            "line": 5,
+            "description": "AMD module."
+        }
+    },
+    "classes": {},
+    "classitems": [
+        {
+            "file": "js/bbdv/aux.js",
+            "line": 3,
+            "description": "Copied from Epeli's underscore.string \"camelize\"\nhttps://github.com/epeli/underscore.string/blob/master/lib/underscore.string.js",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "[description]",
+                    "type": "[type]"
+                }
+            ],
+            "return": {
+                "description": "[description]",
+                "type": "[type]"
+            },
+            "class": ""
+        },
+        {
+            "file": "js/bbdv/aux.js",
+            "line": 15,
+            "description": "Creates a Regular Expression to capture property name.",
+            "class": ""
+        },
+        {
+            "file": "js/bbdv/aux.js",
+            "line": 24,
+            "description": "Returns the string with the first letter to lowercase.",
+            "class": ""
+        },
+        {
+            "file": "js/bbdv/aux.js",
+            "line": 31,
+            "description": "Returns the string with the first letter to uppercase.",
+            "class": ""
+        },
+        {
+            "file": "js/bbdv/execute-directives.js",
+            "line": 8,
+            "description": "[exports description]",
+            "params": [
+                {
+                    "name": "context",
+                    "description": "[description]",
+                    "type": "[type]"
+                },
+                {
+                    "name": "$el",
+                    "description": "[description]",
+                    "type": "[type]"
+                },
+                {
+                    "name": "namespace",
+                    "description": "[description]",
+                    "type": "[type]"
+                },
+                {
+                    "name": "directiveNamespaces",
+                    "description": "[description]",
+                    "type": "[type]"
+                }
+            ],
+            "return": {
+                "description": "[description]",
+                "type": "[type]"
+            },
+            "class": ""
+        },
+        {
+            "file": "js/bbdv/extract-directive-arguments.js",
+            "line": 13,
+            "description": "Given a namespace and a directive namespace\nreturns the regular expression for matching the\ndirective prefiz.",
+            "params": [
+                {
+                    "name": "namespace",
+                    "description": "[description]",
+                    "type": "[type]"
+                },
+                {
+                    "name": "directiveNamespace",
+                    "description": "[description]",
+                    "type": "[type]"
+                }
+            ],
+            "return": {
+                "description": "[description]",
+                "type": "[type]"
+            },
+            "class": ""
+        },
+        {
+            "file": "js/bbdv/extract-directive-arguments.js",
+            "line": 29,
+            "description": "Extracts directive options\nfrom a data set given a namespace and\nan array of directive namespaces.\n\nTHIS FUNCTION IS HIGHLY VERTICALIZED FOR OPTIMIZATION",
+            "params": [
+                {
+                    "name": "namespace",
+                    "description": "[description]",
+                    "type": "[type]"
+                },
+                {
+                    "name": "directiveNamespaces",
+                    "description": "[description]",
+                    "type": "[type]"
+                },
+                {
+                    "name": "data",
+                    "description": "[description]",
+                    "type": "[type]"
+                }
+            ],
+            "return": {
+                "description": "[description]",
+                "type": "[type]"
+            },
+            "class": ""
+        },
+        {
+            "file": "js/bbdv.js",
+            "line": 69,
+            "description": "Array where the directive names are defined.\nThe names defined here should have a corresponding method on the object.",
+            "type": "{Array}",
+            "class": "",
+            "module": "Bbdv"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nCopied from Epeli's underscore.string \"camelize\"\nhttps://github.com/epeli/underscore.string/blob/master/lib/underscore.string.js",
+            "line": " js/bbdv/aux.js:3"
+        },
+        {
+            "message": "Missing item type\nCreates a Regular Expression to capture property name.",
+            "line": " js/bbdv/aux.js:15"
+        },
+        {
+            "message": "Missing item type\nReturns the string with the first letter to lowercase.",
+            "line": " js/bbdv/aux.js:24"
+        },
+        {
+            "message": "Missing item type\nReturns the string with the first letter to uppercase.",
+            "line": " js/bbdv/aux.js:31"
+        },
+        {
+            "message": "Missing item type\n[exports description]",
+            "line": " js/bbdv/execute-directives.js:8"
+        },
+        {
+            "message": "Missing item type\nGiven a namespace and a directive namespace\nreturns the regular expression for matching the\ndirective prefiz.",
+            "line": " js/bbdv/extract-directive-arguments.js:13"
+        },
+        {
+            "message": "Missing item type\nExtracts directive options\nfrom a data set given a namespace and\nan array of directive namespaces.\n\nTHIS FUNCTION IS HIGHLY VERTICALIZED FOR OPTIMIZATION",
+            "line": " js/bbdv/extract-directive-arguments.js:29"
+        },
+        {
+            "message": "Missing item type\nArray where the directive names are defined.\nThe names defined here should have a corresponding method on the object.",
+            "line": " js/bbdv.js:69"
+        }
+    ]
+}

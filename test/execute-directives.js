@@ -1,4 +1,5 @@
-define(['bbdv/execute-directives', 'should', 'jquery'], function (executeDirectives, should, $) {
+define(['bbdv/execute-directives', 'should', 'jquery', 'lodash'],
+function (executeDirectives      ,  should ,  $      ,  _      ) {
 
 
 
@@ -7,44 +8,69 @@ define(['bbdv/execute-directives', 'should', 'jquery'], function (executeDirecti
 
 		beforeEach(function () {
 
-			this.$el = $([
+			this.$div = $([
 				'<div id="root"',
 					'data-bind-out-name="html"',
 					'data-bind-out-color="css:background-color"',
+					'data-bind-name="data:name"',
+					'data-bind-color="data:color"',
 				'>',
-					'<input id="name-input" data-bind-name="value">',
-					'<input id="color-input" data-bind-color="value">',
 				'</div>',
+			].join(' ')).appendTo($('body'));
+
+
+			this.$input = $([
+				'<input id="name-input"',
+					'data-bind-name="value"',
+					'data-bind-out-color="css:color"',
+				'>',
 			].join(' ')).appendTo($('body'));
 
 		});
 
+		afterEach(function () {
+			this.$div.remove();
+
+			this.$input.remove();
+		})
 
 		it(':)', function () {
 
+			// control.
 			var executed = {
 				out: {},
 				'': {},
 			};
 
-			console.log(this.$el.html())
-
-
-			var directives = {
-				out: function ($el, options) {
-
-					executed.out[$el.prop('id')] = options;
-
-				},
+			// define directives.
+			var context = {
 				'': function ($el, options) {
-					executed[''][$el.prop('id')] = options;
-				}
+					executed[''] = options;
+				},
+				out: function ($el, options) {
+					executed.out = options;
+				},
 			};
 
-			executeDirectives(this.$el, 'bind', directives);
+			// run method
+			executeDirectives(context, this.$div, 'bind', _.keys(context));
+
+			// check that the directives were parsed in
+			// "most specific order"
+			// [out, ''];
 
 
-			console.log(executed);
+			executed.out.should.eql({
+				name: 'html',
+				color: 'css:background-color'
+			});
+
+			executed[''].should.eql({
+				name: 'data:name',
+				color: 'data:color'
+			})
+
+
 		});
 
 	});

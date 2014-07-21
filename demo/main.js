@@ -1,8 +1,29 @@
-define(['bbdv'], function (Bbdv) {
+define(['bbdv', 'backbone', 'jquery'], function (bbdv, Backbone, $) {
 
-    var msg = 'Main demo of the bbdv module running!';
+	var model = window.model = new Backbone.Model();
 
-	console.log(msg);
+	var view = bbdv.extendDirectives({
 
-	alert(msg);
+
+		hideIf: function hideIf($el, condition) {
+			console.log(condition);
+		},
+
+		showIf: function showIf($el, conditions) {
+
+			_.each(conditions, function (condition, attr) {
+
+				console.log('if ' + attr + ' === ' + condition + ' show');
+			})
+		}
+	});
+
+
+	view({
+		model: model,
+		el: $('#bbdv-demo')
+	});
+
+
+
 });

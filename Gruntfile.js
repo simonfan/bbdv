@@ -93,7 +93,7 @@ module.exports = function (grunt) {
 					// base url where to look for module files
 					// and relative to which the module paths will be defined
 					// (must coincide with that defined in mainConfigFile)
-					baseUrl: './src',
+					baseUrl: './js',
 					// module name
 					name: 'bbdv',
 					// output here
@@ -124,7 +124,7 @@ module.exports = function (grunt) {
 					// base url where to look for module files
 					// and relative to which the module paths will be defined
 					// (must coincide with that defined in mainConfigFile)
-					baseUrl: './src',
+					baseUrl: './js',
 					// module name
 					name: 'bbdv',
 					// output here
@@ -149,19 +149,6 @@ module.exports = function (grunt) {
 					},
 				}
 			},
-
-			project: {
-				options: {
-					// source files
-					appDir: 'js/',
-					// output here:
-					dir: 'built/project/',
-					mainConfigFile: 'amdconfig.js',
-
-					// do not copy these files
-					fileExclusionRegExp: /^\./,
-				}
-			}
 		}
 	});
 
