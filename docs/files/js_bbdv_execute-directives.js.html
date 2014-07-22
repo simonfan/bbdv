@@ -109,8 +109,16 @@ define(function defExecuteDirectives(require, exports, module) {
 		// run context
 		_.each(directiveArgs, function (dirArg, dirNs) {
 
-			// get fn and invoke it.
-			directives[dirNs].call(this, $el, dirArg);
+			if (dirNs === &#x27;&#x27;) {
+				// call default
+				var fn = directives[&#x27;&#x27;] || directives[&#x27;default&#x27;];
+				fn.call(this, $el, dirArg);
+			} else {
+
+				// get fn and invoke it.
+				directives[dirNs].call(this, $el, dirArg);
+			}
+
 
 		}, this);
 
