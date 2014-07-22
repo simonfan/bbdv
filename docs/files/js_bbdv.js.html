@@ -102,13 +102,13 @@ define(function defBbdv(require, exports, module) {
 	require(&#x27;jquery-selector-data-prefix&#x27;);
 
 	var backbone = require(&#x27;lowercase-backbone&#x27;),
-		$        = require(&#x27;jquery&#x27;);
+		$        = require(&#x27;jquery&#x27;)
+		_        = require(&#x27;lodash&#x27;);
 
-	var executeDirectives = require(&#x27;bbdv/execute-directives&#x27;);
+	var executeDirectives = require(&#x27;bbdv/execute-directives&#x27;),
+		aux               = require(&#x27;bbdv/aux&#x27;);
 
 	var _initialize = backbone.view.prototype.initialize;
-
-
 
 	function findDirectedElements($root, selector) {
 		var $directed;
@@ -133,7 +133,7 @@ define(function defBbdv(require, exports, module) {
 			_initialize.call(this, options);
 
 			// set up options.
-			_.each([&#x27;namespace&#x27;], function (opt) {
+			_.each([&#x27;namespace&#x27;, &#x27;directives&#x27;], function (opt) {
 				this[opt] = options[opt] || this[opt];
 			}, this);
 
@@ -141,14 +141,29 @@ define(function defBbdv(require, exports, module) {
 			var selector  = this.selector(this.namespace),
 				$directed = findDirectedElements(this.$el, selector);
 
+			// parse out directives.
+			var directives = this.directives;
+			// transform directives in hash mapping
+			// from directive namespace to directive method.
+			directives = _.isArray(directives) ? _.zipObject(directives, directives) : directives;
+			this.directives = _.reduce(directives, function (directives, fn, ns) {
+
+				// fn may be either a function by itself or
+				// a string that refers to a method of the view object.
+				directives[aux.camelCase(ns)] = _.isFunction(fn) ? fn : this[fn];
+
+				// return the directives.
+				return directives;
+
+			}, {}, this);
+
 			// execute directives
 			// keep variables in cache befoer loop
-			var namespace  = this.namespace,
-				directives = this.directives;
+			var namespace  = this.namespace;
 
 			_.each($directed, function (el) {
 
-				executeDirectives(this, $(el), namespace, directives);
+				executeDirectives.call(this, $(el), namespace, this.directives);
 
 			}, this);
 

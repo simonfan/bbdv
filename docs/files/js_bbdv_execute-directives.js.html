@@ -98,22 +98,19 @@ define(function defExecuteDirectives(require, exports, module) {
 	 * @param  {[type]} context             [description]
 	 * @param  {[type]} $el                 [description]
 	 * @param  {[type]} namespace           [description]
-	 * @param  {[type]} directiveNamespaces [description]
+	 * @param  {[type]} dirNamespaces [description]
 	 * @return {[type]}                     [description]
 	 */
-	module.exports = function executeDirectives(context, $el, namespace, directiveNamespaces) {
-
-		// camelCase all directive namespaces
-		directiveNamespaces = _.map(directiveNamespaces, aux.camelCase);
+	module.exports = function executeDirectives($el, namespace, directives) {
 
 		// extract options from the $el.data()
-		var directiveArgs = extractDirectiveArgs(namespace, directiveNamespaces, $el.data());
+		var directiveArgs = extractDirectiveArgs(namespace, _.keys(directives), $el.data());
 
 		// run context
 		_.each(directiveArgs, function (dirArg, dirNs) {
 
 			// get fn and invoke it.
-			context[dirNs].call(this, $el, dirArg);
+			directives[dirNs].call(this, $el, dirArg);
 
 		}, this);
 

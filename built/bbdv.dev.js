@@ -177,22 +177,19 @@ define('bbdv/execute-directives',['require','exports','module','lodash','bbdv/ex
 	 * @param  {[type]} context             [description]
 	 * @param  {[type]} $el                 [description]
 	 * @param  {[type]} namespace           [description]
-	 * @param  {[type]} directiveNamespaces [description]
+	 * @param  {[type]} dirNamespaces [description]
 	 * @return {[type]}                     [description]
 	 */
-	module.exports = function executeDirectives(context, $el, namespace, directiveNamespaces) {
-
-		// camelCase all directive namespaces
-		directiveNamespaces = _.map(directiveNamespaces, aux.camelCase);
+	module.exports = function executeDirectives($el, namespace, directives) {
 
 		// extract options from the $el.data()
-		var directiveArgs = extractDirectiveArgs(namespace, directiveNamespaces, $el.data());
+		var directiveArgs = extractDirectiveArgs(namespace, _.keys(directives), $el.data());
 
 		// run context
 		_.each(directiveArgs, function (dirArg, dirNs) {
 
 			// get fn and invoke it.
-			context[dirNs].call(this, $el, dirArg);
+			directives[dirNs].call(this, $el, dirArg);
 
 		}, this);
 
@@ -210,19 +207,19 @@ define('bbdv/execute-directives',['require','exports','module','lodash','bbdv/ex
  * @module Bbdv
  */
 
-define('bbdv',['require','exports','module','jquery-selector-data-prefix','lowercase-backbone','jquery','bbdv/execute-directives'],function defBbdv(require, exports, module) {
+define('bbdv',['require','exports','module','jquery-selector-data-prefix','lowercase-backbone','jquery','lodash','bbdv/execute-directives','bbdv/aux'],function defBbdv(require, exports, module) {
 	
 
 	require('jquery-selector-data-prefix');
 
 	var backbone = require('lowercase-backbone'),
-		$        = require('jquery');
+		$        = require('jquery')
+		_        = require('lodash');
 
-	var executeDirectives = require('bbdv/execute-directives');
+	var executeDirectives = require('bbdv/execute-directives'),
+		aux               = require('bbdv/aux');
 
 	var _initialize = backbone.view.prototype.initialize;
-
-
 
 	function findDirectedElements($root, selector) {
 		var $directed;
@@ -247,7 +244,7 @@ define('bbdv',['require','exports','module','jquery-selector-data-prefix','lower
 			_initialize.call(this, options);
 
 			// set up options.
-			_.each(['namespace'], function (opt) {
+			_.each(['namespace', 'directives'], function (opt) {
 				this[opt] = options[opt] || this[opt];
 			}, this);
 
@@ -255,14 +252,29 @@ define('bbdv',['require','exports','module','jquery-selector-data-prefix','lower
 			var selector  = this.selector(this.namespace),
 				$directed = findDirectedElements(this.$el, selector);
 
+			// parse out directives.
+			var directives = this.directives;
+			// transform directives in hash mapping
+			// from directive namespace to directive method.
+			directives = _.isArray(directives) ? _.zipObject(directives, directives) : directives;
+			this.directives = _.reduce(directives, function (directives, fn, ns) {
+
+				// fn may be either a function by itself or
+				// a string that refers to a method of the view object.
+				directives[aux.camelCase(ns)] = _.isFunction(fn) ? fn : this[fn];
+
+				// return the directives.
+				return directives;
+
+			}, {}, this);
+
 			// execute directives
 			// keep variables in cache befoer loop
-			var namespace  = this.namespace,
-				directives = this.directives;
+			var namespace  = this.namespace;
 
 			_.each($directed, function (el) {
 
-				executeDirectives(this, $(el), namespace, directives);
+				executeDirectives.call(this, $(el), namespace, this.directives);
 
 			}, this);
 

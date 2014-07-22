@@ -106,7 +106,7 @@
                     "type": "[type]"
                 },
                 {
-                    "name": "directiveNamespaces",
+                    "name": "dirNamespaces",
                     "description": "[description]",
                     "type": "[type]"
                 }
@@ -168,7 +168,7 @@
         },
         {
             "file": "js/bbdv.js",
-            "line": 69,
+            "line": 84,
             "description": "Array where the directive names are defined.\nThe names defined here should have a corresponding method on the object.",
             "type": "{Array}",
             "class": "",
@@ -206,7 +206,7 @@
         },
         {
             "message": "Missing item type\nArray where the directive names are defined.\nThe names defined here should have a corresponding method on the object.",
-            "line": " js/bbdv.js:69"
+            "line": " js/bbdv.js:84"
         }
     ]
 }

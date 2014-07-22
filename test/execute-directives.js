@@ -43,7 +43,7 @@ function (executeDirectives      ,  should ,  $      ,  _      ) {
 			};
 
 			// define directives.
-			var context = {
+			var directives = {
 				'': function ($el, options) {
 					executed[''] = options;
 				},
@@ -53,7 +53,7 @@ function (executeDirectives      ,  should ,  $      ,  _      ) {
 			};
 
 			// run method
-			executeDirectives(context, this.$div, 'bind', _.keys(context));
+			executeDirectives(this.$div, 'bind', directives);
 
 			// check that the directives were parsed in
 			// "most specific order"
