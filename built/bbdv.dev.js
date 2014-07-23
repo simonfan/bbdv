@@ -76,7 +76,7 @@ define('bbdv/extract-directive-arguments',['require','exports','module','lodash'
 	 * @param  {[type]} data                [description]
 	 * @return {[type]}                     [description]
 	 */
-	module.exports = function extractDirectiveOptions(namespace, directiveNamespaces, data) {
+	module.exports = function extractDirectiveArguments(namespace, directiveNamespaces, data) {
 		// namespace defaults to empty string
 		namespace = namespace || '';
 
@@ -183,29 +183,26 @@ define('bbdv/execute-directives',['require','exports','module','lodash','bbdv/ex
 		// run context
 		_.each(directiveArgs, function (dirArg, dirNs) {
 
-			var args = [$el, dirArg];
-
 			// get fn
 			var dirFn = directives[dirNs];
 
 			if (_.isFunction(dirFn)) {
 				// invoke
-				dirFn.apply(this, args);
+				dirFn.call(this, $el, dirArg);
 
 			} else {
 				// is object
-				// { fn: dirFn, args: [] }
+				// { fn: dirFn, args: [], exclude: [] }
 
-				// pick extra args if required
-				if (dirFn.args && dirFn.args.length > 0) {
-
-					args = args.concat(_.map(dirFn.args, function (a) {
-						return directiveArgs[a];
-					}));
+				// exclude
+				if (dirFn.exclude) {
+					_.each(dirFn.exclude, function (prop) {
+						delete dirArg[prop];
+					});
 				}
 
 				// invoke
-				dirFn.fn.apply(this, args);
+				dirFn.fn.call(this, $el, dirArg);
 			}
 
 		}, this);
@@ -214,17 +211,17 @@ define('bbdv/execute-directives',['require','exports','module','lodash','bbdv/ex
 
 });
 
-//     Bbdv
+//     bbdv
 //     (c) simonfan
-//     Bbdv is licensed under the MIT terms.
+//     bbdv is licensed under the MIT terms.
 
 /**
  * AMD module.
  *
- * @module Bbdv
+ * @module bbdv
  */
 
-define('bbdv',['require','exports','module','jquery-selector-data-prefix','lowercase-backbone','jquery','lodash','bbdv/execute-directives','bbdv/aux'],function defBbdv(require, exports, module) {
+define('bbdv',['require','exports','module','jquery-selector-data-prefix','lowercase-backbone','jquery','lodash','bbdv/execute-directives','bbdv/aux'],function defbbdv(require, exports, module) {
 	
 
 	require('jquery-selector-data-prefix');

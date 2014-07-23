@@ -28,7 +28,7 @@
         "js/bbdv.js": {
             "name": "js/bbdv.js",
             "modules": {
-                "Bbdv": 1
+                "bbdv": 1
             },
             "classes": {},
             "fors": {},
@@ -36,8 +36,8 @@
         }
     },
     "modules": {
-        "Bbdv": {
-            "name": "Bbdv",
+        "bbdv": {
+            "name": "bbdv",
             "submodules": {},
             "classes": {},
             "fors": {},
@@ -172,7 +172,7 @@
             "description": "Define directives here.",
             "type": "{Object}",
             "class": "",
-            "module": "Bbdv"
+            "module": "bbdv"
         }
     ],
     "warnings": [

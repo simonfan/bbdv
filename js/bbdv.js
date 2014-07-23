@@ -1,14 +1,14 @@
-//     Bbdv
+//     bbdv
 //     (c) simonfan
-//     Bbdv is licensed under the MIT terms.
+//     bbdv is licensed under the MIT terms.
 
 /**
  * AMD module.
  *
- * @module Bbdv
+ * @module bbdv
  */
 
-define(function defBbdv(require, exports, module) {
+define(function defbbdv(require, exports, module) {
 	'use strict';
 
 	require('jquery-selector-data-prefix');

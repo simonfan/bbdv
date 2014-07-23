@@ -38,7 +38,7 @@ define(function (require, exports, module) {
 	 * @param  {[type]} data                [description]
 	 * @return {[type]}                     [description]
 	 */
-	module.exports = function extractDirectiveOptions(namespace, directiveNamespaces, data) {
+	module.exports = function extractDirectiveArguments(namespace, directiveNamespaces, data) {
 		// namespace defaults to empty string
 		namespace = namespace || '';
 
