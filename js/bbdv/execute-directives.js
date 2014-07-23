@@ -21,16 +21,30 @@ define(function defExecuteDirectives(require, exports, module) {
 		// run context
 		_.each(directiveArgs, function (dirArg, dirNs) {
 
-			if (dirNs === '') {
-				// call default
-				var fn = directives[''] || directives['default'];
-				fn.call(this, $el, dirArg);
+			var args = [$el, dirArg];
+
+			// get fn
+			var dirFn = directives[dirNs];
+
+			if (_.isFunction(dirFn)) {
+				// invoke
+				dirFn.apply(this, args);
+
 			} else {
+				// is object
+				// { fn: dirFn, args: [] }
 
-				// get fn and invoke it.
-				directives[dirNs].call(this, $el, dirArg);
+				// pick extra args if required
+				if (dirFn.args && dirFn.args.length > 0) {
+
+					args = args.concat(_.map(dirFn.args, function (a) {
+						return directiveArgs[a];
+					}));
+				}
+
+				// invoke
+				dirFn.fn.apply(this, args);
 			}
-
 
 		}, this);
 

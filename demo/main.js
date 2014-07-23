@@ -9,12 +9,19 @@ define(['bbdv', 'backbone', 'jquery'], function (bbdv, Backbone, $) {
 			console.log(condition);
 		},
 
-		showIf: function showIf($el, conditions) {
+		showIf: {
+			fn: function showIf($el, conditions, hideCondition) {
+				console.log(hideCondition)
 
-			_.each(conditions, function (condition, attr) {
+				console.log('hide when ' + hideCondition);
 
-				console.log('if ' + attr + ' === ' + condition + ' show');
-			})
+				_.each(conditions, function (condition, attr) {
+
+					console.log('if ' + attr + ' === ' + condition + ' show');
+				})
+			},
+
+			args: ['hideIf'],
 		}
 	});
 
@@ -23,25 +30,5 @@ define(['bbdv', 'backbone', 'jquery'], function (bbdv, Backbone, $) {
 		model: model,
 		el: $('#bbdv-demo')
 	});
-
-
-
-
-	v1 = bbdv.extendDirectives({
-		hide: true,
-		show: false
-	});
-
-	v1.directive('aaaaqwe', 'qweqwe')
-
-	v2 = v1.extendDirectives({
-		hide: false,
-		lalala: 'a',
-	});
-
-	v2.directive('aaaa', 'bbb');
-
-	console.log(v1.prototype.directives);
-	console.log(v2.prototype.directives);
 
 });

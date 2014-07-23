@@ -146,7 +146,7 @@ define(function defBbdv(require, exports, module) {
 
 				// fn may be either a function by itself or
 				// a string that refers to a method of the view object.
-				directives[aux.camelCase(ns)] = _.isFunction(fn) ? fn : this[fn];
+				directives[aux.camelCase(ns)] = _.isString(fn) ? this[fn] : fn;
 
 				// return the directives.
 				return directives;

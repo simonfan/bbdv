@@ -183,16 +183,30 @@ define('bbdv/execute-directives',['require','exports','module','lodash','bbdv/ex
 		// run context
 		_.each(directiveArgs, function (dirArg, dirNs) {
 
-			if (dirNs === '') {
-				// call default
-				var fn = directives[''] || directives['default'];
-				fn.call(this, $el, dirArg);
+			var args = [$el, dirArg];
+
+			// get fn
+			var dirFn = directives[dirNs];
+
+			if (_.isFunction(dirFn)) {
+				// invoke
+				dirFn.apply(this, args);
+
 			} else {
+				// is object
+				// { fn: dirFn, args: [] }
 
-				// get fn and invoke it.
-				directives[dirNs].call(this, $el, dirArg);
+				// pick extra args if required
+				if (dirFn.args && dirFn.args.length > 0) {
+
+					args = args.concat(_.map(dirFn.args, function (a) {
+						return directiveArgs[a];
+					}));
+				}
+
+				// invoke
+				dirFn.fn.apply(this, args);
 			}
-
 
 		}, this);
 
@@ -260,7 +274,7 @@ define('bbdv',['require','exports','module','jquery-selector-data-prefix','lower
 
 				// fn may be either a function by itself or
 				// a string that refers to a method of the view object.
-				directives[aux.camelCase(ns)] = _.isFunction(fn) ? fn : this[fn];
+				directives[aux.camelCase(ns)] = _.isString(fn) ? this[fn] : fn;
 
 				// return the directives.
 				return directives;
