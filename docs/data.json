@@ -168,9 +168,9 @@
         },
         {
             "file": "js/bbdv.js",
-            "line": 84,
-            "description": "Array where the directive names are defined.\nThe names defined here should have a corresponding method on the object.",
-            "type": "{Array}",
+            "line": 81,
+            "description": "Define directives here.",
+            "type": "{Object}",
             "class": "",
             "module": "Bbdv"
         }
@@ -205,8 +205,8 @@
             "line": " js/bbdv/extract-directive-arguments.js:29"
         },
         {
-            "message": "Missing item type\nArray where the directive names are defined.\nThe names defined here should have a corresponding method on the object.",
-            "line": " js/bbdv.js:84"
+            "message": "Missing item type\nDefine directives here.",
+            "line": " js/bbdv.js:81"
         }
     ]
 }

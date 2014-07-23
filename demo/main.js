@@ -26,4 +26,22 @@ define(['bbdv', 'backbone', 'jquery'], function (bbdv, Backbone, $) {
 
 
 
+
+	v1 = bbdv.extendDirectives({
+		hide: true,
+		show: false
+	});
+
+	v1.directive('aaaaqwe', 'qweqwe')
+
+	v2 = v1.extendDirectives({
+		hide: false,
+		lalala: 'a',
+	});
+
+	v2.directive('aaaa', 'bbb');
+
+	console.log(v1.prototype.directives);
+	console.log(v2.prototype.directives);
+
 });

@@ -53,12 +53,8 @@ define(function defBbdv(require, exports, module) {
 			var selector  = this.selector(this.namespace),
 				$directed = findDirectedElements(this.$el, selector);
 
-			// parse out directives.
-			var directives = this.directives;
-			// transform directives in hash mapping
-			// from directive namespace to directive method.
-			directives = _.isArray(directives) ? _.zipObject(directives, directives) : directives;
-			this.directives = _.reduce(directives, function (directives, fn, ns) {
+			// parse out directive functions
+			this.directives = _.reduce(this.directives, function (directives, fn, ns) {
 
 				// fn may be either a function by itself or
 				// a string that refers to a method of the view object.
@@ -71,22 +67,22 @@ define(function defBbdv(require, exports, module) {
 
 			// execute directives
 			// keep variables in cache befoer loop
-			var namespace  = this.namespace;
+			var namespace  = this.namespace,
+				directives = this.directives;
 
 			_.each($directed, function (el) {
 
-				executeDirectives.call(this, $(el), namespace, this.directives);
+				executeDirectives.call(this, $(el), namespace, directives);
 
 			}, this);
 
 		},
 
 		/**
-		 * Array where the directive names are defined.
-		 * The names defined here should have a corresponding method on the object.
-		 * @type {Array}
+		 * Define directives here.
+		 * @type {Object}
 		 */
-		directives: [],
+		directives: {},
 
 		namespace: 'dir',
 
@@ -98,35 +94,33 @@ define(function defBbdv(require, exports, module) {
 
 	});
 
+	bbdv.assignStatic('directive', function () {
 
-	bbdv.assignStatic('extendDirectives', function () {
+		if (_.isObject(arguments[0])) {
 
-		// extensions to be set onto the extended object.
-		var extensions;
+			// arguments = [{ directineNamespace: directiveFn_or_directiveFnName }]
+			_.assign(this.prototype.directives, arguments[0]);
 
-		// clone current directives array.
-		var directives = _.clone(this.prototype.directives);
+		} else {
+			// arguments = [directiveNamespace, directiveFn_or_directiveFnName ]
+			this.prototype.directives[arguments[0]] = arguments[1];
 
-		if (arguments.length === 1) {
-			// arguments = [{ directiveNamespace: directiveMethod }]
-			extensions = arguments[0];
-
-			directives = _.union(directives, _.keys(extensions));
-
-
-		} else if (arguments.length === 2) {
-			// arguments = [directiveNamespace, directiveMethod]
-			extensions = {};
-			extensions[arguments[0]] = arguments[1];
-
-			directives.push(arguments[0]);
 		}
 
-		// set new directives onto extensions object.
-		extensions.directives = directives;
+	});
 
 
-		// extend and return.
-		return this.extend(extensions);
+	bbdv.assignStatic('extendDirectives', function (directives) {
+
+		// directives = { directineNamespace: directiveFn }
+		// requires directiveFn to be a real function
+
+
+		var inheritedDirectives = _.create(this.prototype.directives);
+		_.assign(inheritedDirectives, directives);
+
+		var extended = this.extend({ directives: inheritedDirectives });
+
+		return extended;
 	});
 });
