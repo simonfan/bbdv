@@ -99,8 +99,6 @@
 define(function defbbdv(require, exports, module) {
 	&#x27;use strict&#x27;;
 
-	require(&#x27;jquery-selector-data-prefix&#x27;);
-
 	var backbone = require(&#x27;lowercase-backbone&#x27;),
 		$        = require(&#x27;jquery&#x27;)
 		_        = require(&#x27;lodash&#x27;);
@@ -175,8 +173,11 @@ define(function defbbdv(require, exports, module) {
 		namespace: &#x27;dir&#x27;,
 
 		selector: function buildSelector(namespace) {
+
+			return &#x27;[data-&#x27; + namespace + &#x27;]&#x27;;
+
 			// the selector
-			return &#x27;:data-prefix(&#x27; + namespace + &#x27;)&#x27;;
+		//	return &#x27;:data-prefix(&#x27; + namespace + &#x27;)&#x27;;
 		},
 
 

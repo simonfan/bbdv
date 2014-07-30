@@ -221,10 +221,8 @@ define('bbdv/execute-directives',['require','exports','module','lodash','bbdv/ex
  * @module bbdv
  */
 
-define('bbdv',['require','exports','module','jquery-selector-data-prefix','lowercase-backbone','jquery','lodash','bbdv/execute-directives','bbdv/aux'],function defbbdv(require, exports, module) {
+define('bbdv',['require','exports','module','lowercase-backbone','jquery','lodash','bbdv/execute-directives','bbdv/aux'],function defbbdv(require, exports, module) {
 	
-
-	require('jquery-selector-data-prefix');
 
 	var backbone = require('lowercase-backbone'),
 		$        = require('jquery')
@@ -300,8 +298,11 @@ define('bbdv',['require','exports','module','jquery-selector-data-prefix','lower
 		namespace: 'dir',
 
 		selector: function buildSelector(namespace) {
+
+			return '[data-' + namespace + ']';
+
 			// the selector
-			return ':data-prefix(' + namespace + ')';
+		//	return ':data-prefix(' + namespace + ')';
 		},
 
 

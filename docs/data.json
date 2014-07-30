@@ -168,7 +168,7 @@
         },
         {
             "file": "js/bbdv.js",
-            "line": 81,
+            "line": 79,
             "description": "Define directives here.",
             "type": "{Object}",
             "class": "",
@@ -206,7 +206,7 @@
         },
         {
             "message": "Missing item type\nDefine directives here.",
-            "line": " js/bbdv.js:81"
+            "line": " js/bbdv.js:79"
         }
     ]
 }
