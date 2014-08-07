@@ -1,7 +1,7 @@
 {
   "name": "bbdv",
   "main": "built/bbdv.js",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "Some module...",
   "dependencies": {
     "lowercase-backbone": "~0.3.7",

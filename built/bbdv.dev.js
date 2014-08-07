@@ -221,32 +221,17 @@ define('bbdv/execute-directives',['require','exports','module','lodash','bbdv/ex
  * @module bbdv
  */
 
-define('bbdv',['require','exports','module','lowercase-backbone','jquery','lodash','bbdv/execute-directives','bbdv/aux'],function defbbdv(require, exports, module) {
+define('bbdv',['require','exports','module','lowercase-backbone','jquery','lodash','bbdv/aux','bbdv/execute-directives'],function defbbdv(require, exports, module) {
 	
 
 	var backbone = require('lowercase-backbone'),
 		$        = require('jquery')
 		_        = require('lodash');
 
-	var _executeDirectives = require('bbdv/execute-directives'),
-		aux               = require('bbdv/aux');
+	var aux               = require('bbdv/aux'),
+		executeDirectives = require('bbdv/execute-directives');
 
 	var _initialize = backbone.view.prototype.initialize;
-
-	function findDirectedElements($root, selector) {
-		var $directed;
-
-		// check if $root has directives
-		if ($root.is(selector)) {
-			$directed = $root.add($root.find(selector));
-			// $el.add() creates a NEW SELECTION :)
-			// it does not add to the original jq object.
-		} else {
-			$directed = $root.find(selector);
-		}
-
-		return $directed;
-	}
 
 
 	var bbdv = module.exports = backbone.view.extend({
@@ -274,7 +259,7 @@ define('bbdv',['require','exports','module','lowercase-backbone','jquery','lodas
 
 
 			// execute the directives
-			this.execDirectives(this.$el);
+			this.incorporate(this.$el);
 
 		},
 
@@ -284,24 +269,31 @@ define('bbdv',['require','exports','module','lowercase-backbone','jquery','lodas
 		 * @param  {[type]} $el [description]
 		 * @return {[type]}     [description]
 		 */
-		execDirectives: function execDirectives($el) {
+		incorporate: function incorporate($el) {
 
-
-
-			// find directed elements.
-			var selector   = this.selector(this.namespace),
-				$directed  = findDirectedElements($el, selector),
-				directives = this.directives,
+				// grap direct references in order not to look them up
+				// during loops
+			var directives = this.directives,
 				namespace  = this.namespace;
 
+				// build up the selector using the selector method.
+			var selector   = this.selector(this.namespace),
+				// find all descendants that match the selector
+				// and add back those root els that also match.
+				$directed  = $el.find(selector).addBack(selector);
+
+			// execute the directives for each of the lements
+			// selected.
 			_.each($directed, function (el) {
 
-				_executeDirectives.call(this, $(el), namespace, directives);
+				// invoke the executeDirectives
+				// in the bbdv instance's context
+				// passing the $el, namespace and directives as arguments.
+				executeDirectives.call(this, $(el), namespace, directives);
 
 			}, this);
 
 			return this;
-
 		},
 
 		/**
@@ -312,6 +304,15 @@ define('bbdv',['require','exports','module','lowercase-backbone','jquery','lodas
 
 		namespace: 'dir',
 
+		/**
+		 * Builds the selector, based on the namespace of the
+		 * directive view.
+		 *
+		 * Override in order to have custom selectors.
+		 *
+		 * @param  {[type]} namespace [description]
+		 * @return {[type]}           [description]
+		 */
 		selector: function buildSelector(namespace) {
 
 			return '[data-' + namespace + ']';
@@ -323,6 +324,13 @@ define('bbdv',['require','exports','module','lowercase-backbone','jquery','lodas
 
 	});
 
+
+
+	/**
+	 * Static directive definition method.
+	 *
+	 * @return {[type]} [description]
+	 */
 	bbdv.assignStatic('directive', function () {
 
 		if (_.isObject(arguments[0])) {
@@ -338,7 +346,12 @@ define('bbdv',['require','exports','module','lowercase-backbone','jquery','lodas
 
 	});
 
-
+	/**
+	 * Extends the view and defines directives on the extended object.
+	 *
+	 * @param  {[type]} directives [description]
+	 * @return {[type]}            [description]
+	 */
 	bbdv.assignStatic('extendDirectives', function (directives) {
 
 		// directives = { directineNamespace: directiveFn }
