@@ -4,6 +4,13 @@
         "version": "0.0.0"
     },
     "files": {
+        "js/bbdv/methods/parsers.js": {
+            "name": "js/bbdv/methods/parsers.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "js/bbdv/aux.js": {
             "name": "js/bbdv/aux.js",
             "modules": {},
@@ -50,6 +57,23 @@
     },
     "classes": {},
     "classitems": [
+        {
+            "file": "js/bbdv/methods/parsers.js",
+            "line": 10,
+            "description": "Parses a string into methodName and args.\nExample string: 'css:background-color'\n                'attr:href'\n                'val'\n                'someMethod:arg1, arg2, arg3;'",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "[description]",
+                    "type": "[type]"
+                }
+            ],
+            "return": {
+                "description": "[description]",
+                "type": "[type]"
+            },
+            "class": ""
+        },
         {
             "file": "js/bbdv/aux.js",
             "line": 3,
@@ -168,7 +192,25 @@
         },
         {
             "file": "js/bbdv.js",
-            "line": 79,
+            "line": 68,
+            "description": "Executes the directives on the element passed.",
+            "params": [
+                {
+                    "name": "$el",
+                    "description": "[description]",
+                    "type": "[type]"
+                }
+            ],
+            "return": {
+                "description": "[description]",
+                "type": "[type]"
+            },
+            "class": "",
+            "module": "bbdv"
+        },
+        {
+            "file": "js/bbdv.js",
+            "line": 94,
             "description": "Define directives here.",
             "type": "{Object}",
             "class": "",
@@ -176,6 +218,10 @@
         }
     ],
     "warnings": [
+        {
+            "message": "Missing item type\nParses a string into methodName and args.\nExample string: 'css:background-color'\n                'attr:href'\n                'val'\n                'someMethod:arg1, arg2, arg3;'",
+            "line": " js/bbdv/methods/parsers.js:10"
+        },
         {
             "message": "Missing item type\nCopied from Epeli's underscore.string \"camelize\"\nhttps://github.com/epeli/underscore.string/blob/master/lib/underscore.string.js",
             "line": " js/bbdv/aux.js:3"
@@ -205,8 +251,12 @@
             "line": " js/bbdv/extract-directive-arguments.js:29"
         },
         {
+            "message": "Missing item type\nExecutes the directives on the element passed.",
+            "line": " js/bbdv.js:68"
+        },
+        {
             "message": "Missing item type\nDefine directives here.",
-            "line": " js/bbdv.js:79"
+            "line": " js/bbdv.js:94"
         }
     ]
 }

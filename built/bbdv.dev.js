@@ -228,7 +228,7 @@ define('bbdv',['require','exports','module','lowercase-backbone','jquery','lodas
 		$        = require('jquery')
 		_        = require('lodash');
 
-	var executeDirectives = require('bbdv/execute-directives'),
+	var _executeDirectives = require('bbdv/execute-directives'),
 		aux               = require('bbdv/aux');
 
 	var _initialize = backbone.view.prototype.initialize;
@@ -260,10 +260,6 @@ define('bbdv',['require','exports','module','lowercase-backbone','jquery','lodas
 				this[opt] = options[opt] || this[opt];
 			}, this);
 
-			// find directed elements.
-			var selector  = this.selector(this.namespace),
-				$directed = findDirectedElements(this.$el, selector);
-
 			// parse out directive functions
 			this.directives = _.reduce(this.directives, function (directives, fn, ns) {
 
@@ -276,16 +272,35 @@ define('bbdv',['require','exports','module','lowercase-backbone','jquery','lodas
 
 			}, {}, this);
 
-			// execute directives
-			// keep variables in cache befoer loop
-			var namespace  = this.namespace,
-				directives = this.directives;
+
+			// execute the directives
+			this.execDirectives(this.$el);
+
+		},
+
+		/**
+		 * Executes the directives on the element passed.
+		 *
+		 * @param  {[type]} $el [description]
+		 * @return {[type]}     [description]
+		 */
+		execDirectives: function execDirectives($el) {
+
+
+
+			// find directed elements.
+			var selector   = this.selector(this.namespace),
+				$directed  = findDirectedElements($el, selector),
+				directives = this.directives,
+				namespace  = this.namespace;
 
 			_.each($directed, function (el) {
 
-				executeDirectives.call(this, $(el), namespace, directives);
+				_executeDirectives.call(this, $(el), namespace, directives);
 
 			}, this);
+
+			return this;
 
 		},
 
