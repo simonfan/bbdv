@@ -271,6 +271,10 @@ define('bbdv',['require','exports','module','lowercase-backbone','jquery','lodas
 		 */
 		incorporate: function incorporate($el) {
 
+			// force the $el into a jquery object
+			$el = $($el);
+
+
 				// grap direct references in order not to look them up
 				// during loops
 			var directives = this.directives,

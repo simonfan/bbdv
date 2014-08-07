@@ -2,7 +2,7 @@ define(['bbdv', 'backbone', 'jquery'], function (bbdv, Backbone, $) {
 
 	var model = window.model = new Backbone.Model();
 
-	var view = bbdv.extendDirectives({
+	var dview = bbdv.extendDirectives({
 
 
 		hideIf: function hideIf($el, condition) {
@@ -26,9 +26,14 @@ define(['bbdv', 'backbone', 'jquery'], function (bbdv, Backbone, $) {
 	});
 
 
-	view({
+	window.view = dview({
 		model: model,
 		el: $('#bbdv-demo')
 	});
+
+
+	console.log('incorporate:');
+
+	view.incorporate('<div data-dir data-dir-hide-if="condiiton"></div>');
 
 });
