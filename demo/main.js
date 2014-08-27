@@ -4,6 +4,11 @@ define(['bbdv', 'backbone', 'jquery'], function (bbdv, Backbone, $) {
 
 	var dview = bbdv.extendDirectives({
 
+		list: function list($el, arg) {
+			console.log('list;');
+			console.log(arg)
+		},
+
 
 		hideIf: function hideIf($el, condition) {
 			console.log(condition);
