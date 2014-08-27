@@ -1,11 +1,12 @@
 {
   "name": "bbdv",
   "main": "built/bbdv.js",
-  "version": "0.4.7",
+  "version": "0.5.7",
   "description": "Some module...",
   "dependencies": {
     "lowercase-backbone": "~0.3.7",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "bb-rendered-view": "*"
   },
   "devDependencies": {
     "requirejs": "*",
@@ -13,8 +14,5 @@
     "underscore": "*",
     "jquery": "*",
     "qunit": "*"
-  },
-  "resolutions": {
-    "lowercase-backbone": "~0.3.7"
   }
 }

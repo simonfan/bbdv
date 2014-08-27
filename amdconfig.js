@@ -17,7 +17,8 @@ require.config({
 		qunit: '../bower_components/qunit/qunit/qunit',
 		subject: '../bower_components/subject/built/subject',
 		underscore: '../bower_components/underscore/underscore',
-		swtch: '../bower_components/swtch/built/swtch'
+		swtch: '../bower_components/swtch/built/swtch',
+		'bb-rendered-view': '../bower_components/bb-rendered-view/built/bb-rendered-view'
 	},
 	shim: {
 		backbone: {

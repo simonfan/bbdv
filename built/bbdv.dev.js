@@ -1,3 +1,4 @@
+define("bb-rendered-view",["require","exports","module","lowercase-backbone","lodash"],function(e,t,a){var i=e("lowercase-backbone").view,r=e("lodash"),l=i.prototype.initialize,s=i.extend({initialize:function(e){l.apply(this,r.toArray(arguments)),r.each(["template","templateCompiler","templateDataDefaults","templateDataParse","render"],function(t){this[t]=e[t]||this[t]},this),this.render(e)},templateCompiler:r.template,template:void 0,templateDataDefaults:{},templateDataParse:function(e){return r.assign({},this.templateDataDefaults,e)},render:function(e){var t=this.template;if(t){var a=this.templateDataParse(e);if(console.log(a),r.isFunction(t))var i=t(a);else if(r.isString(t))var i=this.templateCompiler(t)(a);this.$el.html(i)}return this}});a.exports=s});
 define('bbdv/aux',['require','exports','module'],function defAux(require, exports, module) {
 
 	/**
@@ -221,24 +222,24 @@ define('bbdv/execute-directives',['require','exports','module','lodash','bbdv/ex
  * @module bbdv
  */
 
-define('bbdv',['require','exports','module','lowercase-backbone','jquery','lodash','bbdv/aux','bbdv/execute-directives'],function defbbdv(require, exports, module) {
+define('bbdv',['require','exports','module','bb-rendered-view','jquery','lodash','bbdv/aux','bbdv/execute-directives'],function defbbdv(require, exports, module) {
 	
 
-	var backbone = require('lowercase-backbone'),
-		$        = require('jquery')
-		_        = require('lodash');
+	var view = require('bb-rendered-view'),
+		$    = require('jquery'),
+		_    = require('lodash');
 
 	var aux               = require('bbdv/aux'),
 		executeDirectives = require('bbdv/execute-directives');
 
-	var _initialize = backbone.view.prototype.initialize;
+	var _init = view.prototype.initialize;
 
 
-	var bbdv = module.exports = backbone.view.extend({
+	var bbdv = module.exports = view.extend({
 
 		initialize: function initializeDirectiveView(options) {
 
-			_initialize.call(this, options);
+			_init.call(this, options);
 
 			// set up options.
 			_.each(['namespace', 'directives'], function (opt) {

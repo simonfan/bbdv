@@ -11,21 +11,21 @@
 define(function defbbdv(require, exports, module) {
 	'use strict';
 
-	var backbone = require('lowercase-backbone'),
-		$        = require('jquery')
-		_        = require('lodash');
+	var view = require('bb-rendered-view'),
+		$    = require('jquery'),
+		_    = require('lodash');
 
 	var aux               = require('bbdv/aux'),
 		executeDirectives = require('bbdv/execute-directives');
 
-	var _initialize = backbone.view.prototype.initialize;
+	var _init = view.prototype.initialize;
 
 
-	var bbdv = module.exports = backbone.view.extend({
+	var bbdv = module.exports = view.extend({
 
 		initialize: function initializeDirectiveView(options) {
 
-			_initialize.call(this, options);
+			_init.call(this, options);
 
 			// set up options.
 			_.each(['namespace', 'directives'], function (opt) {
