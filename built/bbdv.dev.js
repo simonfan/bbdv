@@ -1,4 +1,3 @@
-define("bb-rendered-view",["require","exports","module","lowercase-backbone","lodash"],function(e,t,a){var i=e("lowercase-backbone").view,r=e("lodash"),l=i.prototype.initialize,s=i.extend({initialize:function(e){l.apply(this,r.toArray(arguments)),r.each(["template","templateCompiler","templateDataDefaults","templateDataParse","render"],function(t){this[t]=e[t]||this[t]},this),this.render(e)},templateCompiler:r.template,template:void 0,templateDataDefaults:{},templateDataParse:function(e){return r.assign({},this.templateDataDefaults,e)},render:function(e){var t=this.template;if(t){var a=this.templateDataParse(e);if(console.log(a),r.isFunction(t))var i=t(a);else if(r.isString(t))var i=this.templateCompiler(t)(a);this.$el.html(i)}return this}});a.exports=s});
 define('bbdv/aux',['require','exports','module'],function defAux(require, exports, module) {
 
 	/**

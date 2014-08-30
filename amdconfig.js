@@ -18,7 +18,8 @@ require.config({
 		subject: '../bower_components/subject/built/subject',
 		underscore: '../bower_components/underscore/underscore',
 		swtch: '../bower_components/swtch/built/swtch',
-		'bb-rendered-view': '../bower_components/bb-rendered-view/built/bb-rendered-view'
+		'bb-rendered-view': '../bower_components/bb-rendered-view/built/bb-rendered-view',
+		'bb-self-rendered-view': '../bower_components/bb-self-rendered-view/built/bb-rendered-view'
 	},
 	shim: {
 		backbone: {
