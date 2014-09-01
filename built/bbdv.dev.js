@@ -257,6 +257,8 @@ define('bbdv',['require','exports','module','bb-rendered-view','jquery','lodash'
 
 			}, {}, this);
 
+			console.log(this.directives);
+
 
 			// execute the directives
 			this.incorporate(this.$el);
@@ -284,7 +286,10 @@ define('bbdv',['require','exports','module','bb-rendered-view','jquery','lodash'
 			var selector   = this.selector(this.namespace),
 				// find all descendants that match the selector
 				// and add back those root els that also match.
-				$directed  = $el.find(selector).addBack(selector);
+				$directed  = $el.find(selector);
+
+				// leave the addBack portion.
+				//.addBack(selector);
 
 			// execute the directives for each of the lements
 			// selected.

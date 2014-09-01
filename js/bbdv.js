@@ -44,6 +44,8 @@ define(function defbbdv(require, exports, module) {
 
 			}, {}, this);
 
+			console.log(this.directives);
+
 
 			// execute the directives
 			this.incorporate(this.$el);
@@ -71,7 +73,10 @@ define(function defbbdv(require, exports, module) {
 			var selector   = this.selector(this.namespace),
 				// find all descendants that match the selector
 				// and add back those root els that also match.
-				$directed  = $el.find(selector).addBack(selector);
+				$directed  = $el.find(selector);
+
+				// leave the addBack portion.
+				//.addBack(selector);
 
 			// execute the directives for each of the lements
 			// selected.

@@ -168,7 +168,7 @@
         },
         {
             "file": "js/bbdv.js",
-            "line": 53,
+            "line": 55,
             "description": "Executes the directives on the element passed.",
             "params": [
                 {
@@ -186,7 +186,7 @@
         },
         {
             "file": "js/bbdv.js",
-            "line": 90,
+            "line": 95,
             "description": "Define directives here.",
             "type": "{Object}",
             "class": "",
@@ -194,7 +194,7 @@
         },
         {
             "file": "js/bbdv.js",
-            "line": 98,
+            "line": 103,
             "description": "Builds the selector, based on the namespace of the\ndirective view.\n\nOverride in order to have custom selectors.",
             "params": [
                 {
@@ -212,7 +212,7 @@
         },
         {
             "file": "js/bbdv.js",
-            "line": 120,
+            "line": 125,
             "description": "Static directive definition method.",
             "return": {
                 "description": "[description]",
@@ -223,7 +223,7 @@
         },
         {
             "file": "js/bbdv.js",
-            "line": 140,
+            "line": 145,
             "description": "Extends the view and defines directives on the extended object.",
             "params": [
                 {
@@ -271,23 +271,23 @@
         },
         {
             "message": "Missing item type\nExecutes the directives on the element passed.",
-            "line": " js/bbdv.js:53"
+            "line": " js/bbdv.js:55"
         },
         {
             "message": "Missing item type\nDefine directives here.",
-            "line": " js/bbdv.js:90"
+            "line": " js/bbdv.js:95"
         },
         {
             "message": "Missing item type\nBuilds the selector, based on the namespace of the\ndirective view.\n\nOverride in order to have custom selectors.",
-            "line": " js/bbdv.js:98"
+            "line": " js/bbdv.js:103"
         },
         {
             "message": "Missing item type\nStatic directive definition method.",
-            "line": " js/bbdv.js:120"
+            "line": " js/bbdv.js:125"
         },
         {
             "message": "Missing item type\nExtends the view and defines directives on the extended object.",
-            "line": " js/bbdv.js:140"
+            "line": " js/bbdv.js:145"
         }
     ]
 }

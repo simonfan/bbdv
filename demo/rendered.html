@@ -19,7 +19,7 @@
 
 				var template = [
 					'<div>',
-						'<div data-factory="mod">',
+						'<div data-dir-factory="mod">',
 							'<div></div>',
 						'</div>',
 					'</div>'
@@ -29,6 +29,10 @@
 				var v = bbdv.extend({
 					template: template,
 				});
+
+				v.directive('factory', function () {
+					alert('fact')
+				})
 
 				var view = window.view = v({
 					el: $('#container'),
